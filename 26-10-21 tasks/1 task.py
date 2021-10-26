@@ -13,8 +13,10 @@ import string
 l_counter = 0
 from module1 import*
 global input_type
-
-def fill_values():
+def show_values(list1,list2): #shows nemes and salary
+    for i in range(len(list1)):
+        print(f"{list1[i]} : {list2[i]}")
+def fill_values(): # Fill lines with manual or random values 
 
     if input_type == "R":
         while True: # amount for random 
@@ -65,7 +67,7 @@ def delete_by_name(): #delete a position with name and salary
     inimesed.pop(index_to_delete)
     palgad.pop(index_to_delete)        
     print()
-def sort_by_salary():
+def sort_by_salary(sorting_order): 
     # идем по каждому значению из несортированного списка
     # добавляем значение в конец сортированного буфера
     # сравниваем с соседним значением
@@ -78,33 +80,50 @@ def sort_by_salary():
         buf_names_list.append(inimesed[i])
 
         for j in range(len(buf_salary_list)-1,0,-1):
-            if buf_salary_list[j] < buf_salary_list[j-1]:
-                # перемещаем в случае если новое (последнее) значение меньше предидущего
-                sss = buf_salary_list[j-1]
-                buf_salary_list[j-1] = buf_salary_list[j]
-                buf_salary_list[j] = sss
+            if sorting_order == 1:
+                if buf_salary_list[j] < buf_salary_list[j-1]:
+                    # перемещаем в случае если новое (последнее) значение меньше предидущего
+                    sss = buf_salary_list[j-1]
+                    buf_salary_list[j-1] = buf_salary_list[j]
+                    buf_salary_list[j] = sss
 
-                nnn = buf_names_list[j-1]
-                buf_names_list[j-1] = buf_names_list[j]
-                buf_names_list[j] = nnn
+                    nnn = buf_names_list[j-1]
+                    buf_names_list[j-1] = buf_names_list[j]
+                    buf_names_list[j] = nnn
+            elif sorting_order == 2:
+                if buf_salary_list[j] > buf_salary_list[j-1]:
+                    # перемещаем в случае если новое (последнее) значение больше предидущего
+                    sss = buf_salary_list[j-1]
+                    buf_salary_list[j-1] = buf_salary_list[j]
+                    buf_salary_list[j] = sss
+
+                    nnn = buf_names_list[j-1]
+                    buf_names_list[j-1] = buf_names_list[j]
+                    buf_names_list[j] = nnn
 
 
 
     return buf_names_list, buf_salary_list
-            
-            
+def input_digit(show_string):
+    while True:
+        d = input(show_string)
+        if d.isdigit() == True:
+            return int(d)           
+         
 
 
 
 
 while True:
-    print("Menu: (press enter for exit)")
+    
+    print("Menu:")
     print("R for random fill")
     print("M for manual salary input")
     print("S to show names and salary")
     print("D to delete by name")
     print("R for random fill")
     print("Sort for sorting by salary")
+    print("(press enter for exit)")
 
     input_type = input("Enter a option : ").upper()
     if input_type in ["R", "M"]:
@@ -114,10 +133,12 @@ while True:
     elif input_type == "D":
         delete_by_name()
     elif input_type == "SORT":
-        inimesed, palgad = sort_by_salary()
+        inimesed, palgad = sort_by_salary(input_digit("Enter 1 for ascending or 2 for descending order:"))
         show_values(inimesed,palgad)
     else:
         break #end programm
+    print()
+    input("Press enter to show menu")
 
 
 
