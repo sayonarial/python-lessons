@@ -5,13 +5,13 @@
 r_names_list = ["Vasya", "Gena", "Lesha", "Jevgeniy","Dima","Mihail","Nikita","Lolita","Kolyan","Artem","Gosha"]
 max_rand_salary = 15000
 global inimesed
-inimesed = []
+inimesed = ["A","B","C","D","E"]
 global palgad
-palgad = []
+palgad = [1200,2500,750,395,1200]
 import random
 import string
 l_counter = 0
-from module1 import*
+
 global input_type
 def show_values(list1,list2): #shows nemes and salary
     for i in range(len(list1)):
@@ -109,7 +109,17 @@ def input_digit(show_string):
         d = input(show_string)
         if d.isdigit() == True:
             return int(d)           
-         
+def minmax_salary(minormax):
+
+    min_v = minmax_salary
+    max_v = 0
+    for i in range(len(palgad)-1):
+        if palgad[i] < min_v: min_v = palgad[i]
+        if palgad[i] > max_v: 
+    if minormax == "MIN":
+        
+    elif minormax == "MAX":
+            
 
 
 
@@ -135,6 +145,9 @@ while True:
     elif input_type == "SORT":
         inimesed, palgad = sort_by_salary(input_digit("Enter 1 for ascending or 2 for descending order:"))
         show_values(inimesed,palgad)
+    elif input_type == ["MIN","MAX"]:
+        minmax_salary(input_type)
+
     else:
         break #end programm
     print()
