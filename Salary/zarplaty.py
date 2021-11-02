@@ -54,7 +54,7 @@ def fill_values(input_type): # Fill lines with manual or random values
         while True:
             new_name = input("Введите имя (Enter для выхода): ")
             if  new_name == "":
-                print("Input process ended by user")
+                print("Ручной ввод закончен")
                 break
             inimesed.append(new_name)
 
@@ -305,10 +305,10 @@ def menu():
     functionsList.append("Ввести имена и зарплаты вручную")
     functionsList.append("Показать зарплаты")
     functionsList.append("Удалить человека и его зарплату(вводим имя)")
-    functionsList.append("Самую большую зарплату и кто ее получает")
+    functionsList.append("Самая большая зарплата и кто ее получает")
     functionsList.append("Кто получает самую маленькую зарплату и какую именно")
     functionsList.append("Упорядочить зарплаты в порядке возрастания и убывания вместе с именами")
-    functionsList.append("Узнать, кто получает одинаковую зарплату, найти сколько таких людей вывести их данные на экран")
+    functionsList.append("Кто получает одинаковую зарплату, найти сколько таких людей вывести их данные на экран")
     functionsList.append("Поиск зарплаты по имени человека")
     functionsList.append("Вывести список тех людей(с зарплатами), кто получает больше/меньше чем указанная сумма")
     functionsList.append("3 самых бедных и самых богатых человека")
@@ -372,7 +372,7 @@ while True:
     else:
         break #end programm
     print()
-    input("Press enter to show menu")
+    input("Нажми enter чтобы показать меню")
 
 
 
