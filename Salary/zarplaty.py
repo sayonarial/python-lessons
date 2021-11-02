@@ -38,7 +38,7 @@ def fill_values(input_type): # Fill lines with manual or random values
 
     if input_type == "R":
         while True: # amount for random 
-            total_inimesed = input("Specify number of random values: ")
+            total_inimesed = input("Сколько рандомных значений вставить: ")
             if total_inimesed.isdigit() == True:
                 total_inimesed = int(total_inimesed)
                 break
