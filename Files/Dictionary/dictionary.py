@@ -1,5 +1,6 @@
 
 from module import*
+import os # чтобы чистить консоль
 
 menu_list = ['Перевести слово'] # rus eng
 menu_list.append('Добавить перевод')
@@ -8,6 +9,8 @@ menu_list.append('Показать данные')
 menu_list.append('Выйти')
 
 while True:
+    os.system('cls' if os.name == 'nt' else 'clear') # clear console
+    
     menu_counter = 1
     for i in menu_list:
         print(f"{menu_counter}. {i}")
@@ -33,6 +36,7 @@ while True:
         show_values(load_dictionary())
     else:
         break
-
+    
+    print()
     input("Нажмите enter для продолжения")
 

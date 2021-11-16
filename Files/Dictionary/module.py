@@ -77,37 +77,42 @@ def add_translation(my_dictionary : dict) -> dict:
     """
     Adds translation to library then appends it in file
     """
+    show_values(my_dictionary)
     rus_symbols = "абвгдежзиклмнопрстуфхцчшщъыьэюя"
-
-    new_word = input("Введите новое слово для добавления: ").lower()
-    # language detect 
-    lang = "ENG"
-    for i in new_word:
-        if rus_symbols.find(i) > 0:
-            lang = "RUS"
-            break
-    
-    print(lang)
-
     while True:
-        new_t_word = input(f"Введите  перевод для слова {new_word.capitalize()}: ").lower()
-        # check one more time for opposite language
-        t_lang = "ENG"
-        for i in new_t_word:
+        new_word = input("Введите новое слово для добавления: ").lower()
+        # language detect 
+        lang = "ENG"
+        for i in new_word:
             if rus_symbols.find(i) > 0:
-                t_lang = "RUS"
+                lang = "RUS"
                 break
-        if lang == t_lang:
-            print("Язык должен отличаться!")
+        
+        print(lang)
+
+        while True:
+            new_t_word = input(f"Введите  перевод для слова {new_word.capitalize()}: ").lower()
+            # check one more time for opposite language
+            t_lang = "ENG"
+            for i in new_t_word:
+                if rus_symbols.find(i) > 0:
+                    t_lang = "RUS"
+                    break
+            if lang == t_lang:
+                print("Язык должен отличаться!")
+            else:
+                break
+        
+        if lang == "RUS":
+            my_dictionary.update({new_word:new_t_word})
         else:
-            break
-    
-    if lang == "RUS":
-        my_dictionary.update({new_word:new_t_word})
-    else:
-        my_dictionary.update({new_t_word:new_word})
-    
+            my_dictionary.update({new_t_word:new_word})
+        
+        if input("Enter - ввести еще. \"Q\" чтобы выйти: ").upper() == "Q":
+                break
+
     save_dictionary(my_dictionary)
+
 
 
 def correct_data(my_dictionary : dict):
@@ -119,7 +124,8 @@ def correct_data(my_dictionary : dict):
     # input value to change
     while True:
         c_text = input('Введите слово чтобы изменить его перевод: ').lower()
-
+        rus_word = ""
+        eng_word = ""
         for rus,eng in my_dictionary.items():
             if rus == c_text:
                 rus_word = c_text
@@ -133,7 +139,9 @@ def correct_data(my_dictionary : dict):
                 w_to_delete = rus
                 break
         if eng_word == "" or rus_word == "":
-            print("Нет такого значения")
+            print("Такого слова нет в словаре")
+            if input("Enter - заново. \"Q\" чтобы выйти: ").upper() == "Q":
+                break
         else:
             break
 

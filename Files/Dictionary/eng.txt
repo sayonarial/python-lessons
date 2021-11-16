@@ -1,6 +1,9 @@
 home
 dog
 fish
-bird
 table
-kitty
+cat
+bird
+car
+mouse
+cap
