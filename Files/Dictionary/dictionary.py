@@ -15,7 +15,7 @@ while True:
     
     while True:
         try:
-            menu_num = int(input("Выбири операцию: "))
+            menu_num = int(input("Выбeри операцию: "))
             break
         except ValueError:
             print("Вводи только цифры")
