@@ -1,0 +1,6 @@
+home
+dog
+fish
+bird
+table
+kitty
