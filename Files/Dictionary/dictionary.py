@@ -6,6 +6,7 @@ menu_list = ['Перевести слово'] # rus eng
 menu_list.append('Добавить перевод')
 menu_list.append('Исправить перевод')
 menu_list.append('Показать данные')
+menu_list.append("Проверить знания")
 menu_list.append('Выйти')
 
 while True:
@@ -32,8 +33,10 @@ while True:
         add_translation(load_dictionary())
     elif menu_func == "Исправить перевод":
         correct_data(load_dictionary())
-    elif menu_func == "Показать данные":
+    elif menu_func == "Отобразить словарь":
         show_values(load_dictionary())
+    elif menu_func == "Проверить знания":
+        training(load_dictionary())
     else:
         break
     

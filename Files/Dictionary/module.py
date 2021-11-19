@@ -168,4 +168,91 @@ def correct_data(my_dictionary : dict):
     save_dictionary(my_dictionary)
 
 
+def training(my_dictionary:dict):
+    """
+    Show random words and verify translate
+    Prints result of right words in  %
+    """
+    # Print info
+    print("Слова будут отображаться в случайно порядке.\nВаша задача написать перевод слова как можно скорее.\nРезульат будет выведен после ввода \"Q\"")
+    # Lang
+    while True:
+        lang = input("Выбери язык:\n1.RUS -> ENG\n2.ENG -> RUS").upper()
+        if lang == "1":
+            lang = "RUS -> ENG"
+            break
+        elif lang == "2":
+            lang = "ENG -> RUS"
+            break
+        elif lang == "Q":
+            print("Отмена операции")
+            return
+        else:
+            print("Введи 1 или 2!")
+    print(lang)
 
+    # Start
+    if input("Нажмите Ввод для старта или Q для выхода").upper() == "Q":
+        return
+    
+    # Start count
+    import os # чтобы чистить консоль
+    import time
+    for i in range(3,0,-1):
+        os.system('cls' if os.name == 'nt' else 'clear') # clear console
+        print(f"Старт через {i}")
+        # 1 sec delay
+        time.sleep(1)
+
+    #Create lists from dictionary
+    eng_list = []
+    rus_list = []
+    for eng,rus in my_dictionary.items():
+        eng_list.append(eng)
+        rus_list.append(rus)
+    
+    # find max index of list 
+    max_index = len(rus_list) - 1
+
+    # show random word by selected language
+    import random
+    from colorama import Fore,Back,Style
+    
+    total_counter = 0
+    ok_counter = 0
+    while True:
+        rand_index = random.randint(0,max_index)
+        if lang == "RUS -> ENG":
+            print(rus_list[rand_index])
+            answer = input("\n").lower()
+            if answer in eng_list[rand_index].lower():
+                print(Fore.GREEN + "Верно!")
+                print(Style.RESET_ALL)
+                ok_counter += 1
+            elif answer == "q":
+                break # Quit
+            else:
+                print(Fore.RED + "Неправильно! ( " + eng_list[rand_index]+ ' )')
+                print(Style.RESET_ALL)
+        
+        else:
+            print(eng_list[rand_index])
+            answer = input("\n").lower()
+            if answer in rus_list[rand_index].lower():
+                print(Fore.GREEN + "Верно!")
+                print(Style.RESET_ALL)
+                ok_counter += 1
+            elif answer == "q":
+                break # Quit
+            else:
+                print(Fore.RED + "Неправильно! ( " + rus_list[rand_index]+ ' )')
+                print(Style.RESET_ALL)
+        
+        total_counter +=1
+
+    # print results
+    print("Всего слов:", total_counter)
+    print("Правильных ответов:",ok_counter, end=" ")
+    round_per = round(ok_counter / (total_counter/100),2)
+    print(f"( {round(round_per)}% )")
+        
