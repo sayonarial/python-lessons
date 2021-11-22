@@ -1,3 +1,6 @@
+from types import new_class
+
+
 def load_dictionary() -> dict:
     """
     Loads data from files rus and eng to python dictionary
@@ -71,16 +74,20 @@ def translate(my_dictionary : dict):
             return
 
     print("Такого слова еще нет в словаре")
+    if input("Добавить? Enter - да Q - нет").upper() != "Q":
+        add_translation(my_dictionary,i_word)
+    
 
-def add_translation(my_dictionary : dict) -> dict:
+def add_translation(my_dictionary : dict,new_word:str = "",new_t_word:str = "") -> dict:
 
     """
     Adds translation to library then appends it in file
     """
-    show_values(my_dictionary)
+    
     rus_symbols = "абвгдежзиклмнопрстуфхцчшщъыьэюя"
     while True:
-        new_word = input("Введите новое слово для добавления: ").lower()
+        if new_word == "":
+            new_word = input("Введите новое слово для добавления: ").lower()
         # language detect 
         lang = "ENG"
         for i in new_word:
@@ -91,7 +98,8 @@ def add_translation(my_dictionary : dict) -> dict:
         print(lang)
 
         while True:
-            new_t_word = input(f"Введите  перевод для слова {new_word.capitalize()}: ").lower()
+            if new_t_word == "":
+                new_t_word = input(f"Введите  перевод для слова {new_word.capitalize()}: ").lower()
             # check one more time for opposite language
             t_lang = "ENG"
             for i in new_t_word:
@@ -108,6 +116,8 @@ def add_translation(my_dictionary : dict) -> dict:
         else:
             my_dictionary.update({new_t_word:new_word})
         
+        new_word = ""
+        new_t_word = ""
         if input("Enter - ввести еще. \"Q\" чтобы выйти: ").upper() == "Q":
                 break
 
@@ -174,10 +184,10 @@ def training(my_dictionary:dict):
     Prints result of right words in  %
     """
     # Print info
-    print("Слова будут отображаться в случайно порядке.\nВаша задача написать перевод слова как можно скорее.\nРезульат будет выведен после ввода \"Q\"")
+    print("Слова будут отображаться в случайном порядке.\nВаша задача написать перевод слова.\nРезульат будет выведен после ввода \"Q\"")
     # Lang
     while True:
-        lang = input("Выбери язык:\n1.RUS -> ENG\n2.ENG -> RUS").upper()
+        lang = input("Выбери язык:\n1.RUS -> ENG\n2.ENG -> RUS\n").upper()
         if lang == "1":
             lang = "RUS -> ENG"
             break
@@ -207,7 +217,7 @@ def training(my_dictionary:dict):
     #Create lists from dictionary
     eng_list = []
     rus_list = []
-    for eng,rus in my_dictionary.items():
+    for rus,eng in my_dictionary.items():
         eng_list.append(eng)
         rus_list.append(rus)
     
@@ -225,7 +235,7 @@ def training(my_dictionary:dict):
         if lang == "RUS -> ENG":
             print(rus_list[rand_index])
             answer = input("\n").lower()
-            if answer in eng_list[rand_index].lower():
+            if answer == eng_list[rand_index].lower():
                 print(Fore.GREEN + "Верно!")
                 print(Style.RESET_ALL)
                 ok_counter += 1
@@ -234,11 +244,11 @@ def training(my_dictionary:dict):
             else:
                 print(Fore.RED + "Неправильно! ( " + eng_list[rand_index]+ ' )')
                 print(Style.RESET_ALL)
-        
-        else:
+
+        elif lang == "ENG -> RUS":
             print(eng_list[rand_index])
             answer = input("\n").lower()
-            if answer in rus_list[rand_index].lower():
+            if answer == rus_list[rand_index].lower():
                 print(Fore.GREEN + "Верно!")
                 print(Style.RESET_ALL)
                 ok_counter += 1
@@ -254,5 +264,5 @@ def training(my_dictionary:dict):
     print("Всего слов:", total_counter)
     print("Правильных ответов:",ok_counter, end=" ")
     round_per = round(ok_counter / (total_counter/100),2)
-    print(f"( {round(round_per)}% )")
+    print(f"( {round_per}% )")
         

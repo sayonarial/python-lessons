@@ -7,3 +7,6 @@ bird
 car
 mouse
 cap
+butter
+shark
+chair

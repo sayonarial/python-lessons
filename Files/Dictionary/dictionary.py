@@ -30,6 +30,7 @@ while True:
     if menu_func == 'Перевести слово': 
         translate(load_dictionary())
     elif menu_func == "Добавить перевод":
+        show_values(load_dictionary())
         add_translation(load_dictionary())
     elif menu_func == "Исправить перевод":
         correct_data(load_dictionary())
