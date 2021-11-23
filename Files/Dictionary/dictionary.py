@@ -1,3 +1,6 @@
+# Yevgeniy Onufrak
+# TARgv21
+# 23.11.2021
 
 from module import*
 import os # чтобы чистить консоль
