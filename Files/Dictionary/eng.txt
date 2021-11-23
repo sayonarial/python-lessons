@@ -10,3 +10,5 @@ cap
 butter
 shark
 chair
+love
+rain

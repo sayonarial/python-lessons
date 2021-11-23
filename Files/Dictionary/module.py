@@ -6,17 +6,19 @@ def load_dictionary() -> dict:
     Loads data from files rus and eng to python dictionary
     Returns Dictionary
     """
+    import os.path
+    alg_path = os.path.dirname(__file__) + '/'
     t_dict = {}
     rus_list = []
     eng_list = []
     # try open a files and store data to lists
     try:
-        rus = open('Files/Dictionary/rus.txt', 'r',encoding='utf-8')
-        eng = open('Files/Dictionary/eng.txt', 'r',encoding='utf-8')
+        rus = open(alg_path + 'rus.txt', 'r',encoding='utf-8')
+        eng = open(alg_path + 'eng.txt', 'r',encoding='utf-8')
                   
     except FileNotFoundError:
-        rus = open('Files/Dictionary/rus.txt','w',encoding='utf-8')
-        eng = open('Files/Dictionary/eng.txt','w',encoding='utf-8')
+        rus = open(alg_path + 'rus.txt','w',encoding='utf-8')
+        eng = open(alg_path + 'eng.txt','w',encoding='utf-8')
     
     rus_list = rus.readlines()
     eng_list = eng.readlines()  
@@ -33,9 +35,10 @@ def save_dictionary(my_dictionary : dict):
     """
     Saves a dictionary to separate files eng.txt and rus.txt
     """
-    
-    rus_file = open('Files/Dictionary/rus.txt','w',encoding='utf-8')
-    eng_file = open('Files/Dictionary/eng.txt','w',encoding='utf-8')
+    import os.path
+   
+    rus_file = open( os.path.dirname(__file__) + '/rus.txt','w',encoding='utf-8')
+    eng_file = open( os.path.dirname(__file__) + '/eng.txt','w',encoding='utf-8')
     
     for rus,eng in my_dictionary.items():
         rus_file.write(rus + '\n')
@@ -68,9 +71,11 @@ def translate(my_dictionary : dict):
     for rus,eng in my_dictionary.items():
         if i_word == rus:
             print(eng.capitalize())
+            text_to_speech(eng,"en")
             return
         elif i_word == eng:
             print(rus.capitalize())
+            text_to_speech(rus,"ru")
             return
 
     print("Такого слова еще нет в словаре")
@@ -129,7 +134,6 @@ def correct_data(my_dictionary : dict):
     """
     Corrects translation of a given word
     """
-    show_values(my_dictionary)
 
     # input value to change
     while True:
@@ -266,3 +270,46 @@ def training(my_dictionary:dict):
     round_per = round(ok_counter / (total_counter/100),2)
     print(f"( {round_per}% )")
         
+# to use text to speech you need pip install gTTS
+def text_to_speech(thisText:str,thisLanguage:str):
+    """
+    This function generates text to speech
+    """
+    print("Проигрывание...")
+    import os.path
+    mp3_path = os.path.dirname(__file__) + '/' #where mp3 file will be saved
+    mp3_file = 'text_to_speech.mp3'
+
+    from gtts import gTTS
+    tts = gTTS(text = thisText, slow=False,lang = thisLanguage)
+    tts.save(mp3_path + mp3_file)
+
+    import os
+    os.system("start " + mp3_path + mp3_file)
+
+def delete_transl(my_dictionary:dict):
+    """
+    Delete pair value from dictionary
+    """
+    rus_word = ""
+    eng_word = ""
+    w_to_delete = input("Введите слово, которое следует удалить\n")
+    for rus,eng in my_dictionary.items():
+        if rus == w_to_delete or eng == w_to_delete:
+            rus_word = rus
+            eng_word = eng
+
+            # delete value from dictionary
+            my_dictionary.pop(rus_word)
+
+            # save dictionary
+            save_dictionary(my_dictionary)
+
+            return
+            
+    print("Такого слова нет в словаре")
+    
+
+
+
+    
