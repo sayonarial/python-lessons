@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Files",
+    "\\Files\\Dictionary",
     "\\Isikukood analyser"
   ],
-  "SelectedNode": "\\Isikukood analyser\\isikukood_analyser.py",
+  "SelectedNode": "\\Files\\Dictionary\\dictionary.py",
   "PreviewInSolutionExplorer": false
 }
